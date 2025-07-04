@@ -4,44 +4,60 @@
 
 int main()
 {
-    int c, i, count, maxNIndex;
-    
-     int arr[MAX];
+    int c, i, count, maxLength, maxHeight;
 
-     for (i = 0; i <=  MAX; i++)
-     {
-        arr[i] = 0;
-     }
+    int word[MAX];
 
-     count = i  = maxNIndex = 0;
+    for (i = 0; i <= MAX; i++)
+    {
+        word[i] = 0;
+    }
+
+    count = i = maxLength, maxHeight = 0;
 
     while ((c = getchar()) != EOF)
     {
         if (c == ' ' || c == '\n' || c == '\t')
         {
-            arr[i] = count;
+            word[i] = count;
             i++;
             count = 0;
-        } else {
+        }
+        else
+        {
             ++count;
         }
     }
 
-    arr[i] = count;
+    word[i] = count;
 
+    // максимальная длина гистограммы
     for (int m = 0; m < MAX; m++)
     {
-        if (arr[m] == 0) {
-            maxNIndex = m - 1;
+        if (word[m] == 0)
+        {
+            maxLength = m;
             break;
         }
     }
 
+    // максимальная высота гистограммы
+    for (int h = 0; h <= maxLength; h++)
+    {
+        if (word[h] > maxHeight)
+        {
+            maxHeight = word[h];
+        }
+    }
+
     printf("\n");
-    for (i = 0; i <= maxNIndex; ++i) {
-        for (int j = 0; j < arr[i]; ++j) {
-          if (i <= arr[j])
-                putchar('*');
+
+    for (int j = maxHeight; j > 0; j--)
+    {
+        for (int i = 0; i < maxLength; ++i)
+        {
+            if (word[i] >= j)
+                putchar('#');
             else
                 putchar(' ');
         }
